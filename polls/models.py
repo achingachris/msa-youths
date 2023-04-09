@@ -19,15 +19,15 @@ class Choice(models.Model):
 # models
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, blank=True)
     
     def __str__(self):
         return self.name
     
 class Nominee(models.Model):
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='nominee_images/')
-    description = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='nominee_images/', blank=True)
+    description = models.CharField(max_length=200, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     
     def __str__(self) -> str:

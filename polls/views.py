@@ -1,28 +1,79 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template import loader
 from django.urls import reverse
-from .models import Question, Choice
+from .models import Question, Choice, Category, Nominee, Vote
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 
-# def index(request):
-#     latest_question_list = Question.objects.order_by("-pub_date")[:5]
-#     template = loader.get_template("polls/index.html")
-#     context = {
-#         "latest_question_list": latest_question_list,
-#     }
-#     return HttpResponse(template.render(context, request))
+# list all categories and nominees
+def index(request):
+    categories = Category.objects.all()
+    nominees = Nominee.objects.all()
+    context = {'categories': categories, 'nominees': nominees}
+    return render(request, 'index.html', context)
+
+@login_required
+def vote(request):
+    if request.method == 'POST':
+        user = request.user
+        nominee_id = request.POST.get('nominee')
+        nominee = Nominee.objects.get(pk=nominee_id)
+        timestamp = timezone.now()
+        try:
+            vote = Vote.objects.get(user=user, nominee__category=nominee.category)
+            vote.nominee = nominee
+            vote.timestamp = timestamp
+            vote.save()
+        except ObjectDoesNotExist:
+            vote = Vote(user=user, nominee=nominee, timestamp=timestamp)
+            vote.save()
+        return redirect('vote_success')
+    else:
+        categories = Category.objects.all()
+        context = {'categories': categories}
+        return render(request, 'vote.html', context)
+
+# def nominees(request, category_id):
+#     category = Category.objects.get(pk=category_id)
+#     nominees = Nominee.objects.filter(category=category)
+#     context = {'category': category, 'nominees': nominees}
+#     return render(request, 'nominees.html', context)
+
+def vote_success(request):
+    return render(request, 'vote_success.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def index(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
     context = {"latest_question_list": latest_question_list}
     return render(request, "polls/index.html", context)
-
-# def detail(request, question_id):
-#     try:
-#         question = Question.objects.get(pk=question_id)
-#     except Question.DoesNotExist:
-#         raise Http404("Question does not exist")
-#     return render(request, "polls/detail.html", {"question": question})
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

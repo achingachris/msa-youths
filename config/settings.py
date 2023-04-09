@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     
     # My Apps
     'polls.apps.PollsConfig',
+    
+    # third party apps
+    'django_seed',
 ]
 
 MIDDLEWARE = [
