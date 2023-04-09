@@ -13,11 +13,11 @@ class VoteAdmin(admin.ModelAdmin):
     list_filter = ('nominee__category', 'timestamp')
     date_hierarchy = 'timestamp'
     
-    def has_add_permission(self, request):
-        return False
+    # def has_add_permission(self, request):
+    #     return False
     
-    def has_change_permission(self, request, obj=None):
-        return False
+    # def has_change_permission(self, request, obj=None):
+    #     return False
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Nominee, NomineeAdmin)

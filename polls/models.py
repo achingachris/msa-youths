@@ -3,18 +3,6 @@ from datetime import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published", auto_now_add=True)
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-    
-    def was_published_recently(self):
-        now = timezone.now()
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
     
 # models
 class Category(models.Model):
@@ -40,3 +28,17 @@ class Vote(models.Model):
     
     def __str__(self):
         return f'{self.user} voted for {self.nominee}'
+
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField("date published", auto_now_add=True)
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+    
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now

@@ -7,7 +7,7 @@ Time To Vote
     <h2>{{ category.name }}</h2>
     {% for nominee in category.nominee_set.all %}
       <label>
-        <input type="radio" name="nominee_id" value="{{ nominee.id }}">
+        <input type="radio" name="nominee_id_{{ category.id }}" value="{{ nominee.id }}">
         {{ nominee.name }}
       </label><br>
     {% endfor %}

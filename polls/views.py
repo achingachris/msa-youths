@@ -14,21 +14,10 @@ def index(request):
     context = {'categories': categories, 'nominees': nominees}
     return render(request, 'index.html', context)
 
-@login_required
 def vote(request):
     # Get all categories
     categories = Category.objects.all()
 
-    # Check if the user has already voted
-    try:
-        last_vote = request.user.vote_set.latest('timestamp')
-    except Vote.DoesNotExist:
-        last_vote = None
-
-    if last_vote and (timezone.now() - last_vote.timestamp).total_seconds() < 3600:
-        # User has already voted within the last hour, redirect back to wait_for_next_hour
-        return redirect('wait_for_next_hour')
-    
     # Check if the user has submitted a vote
     if request.method == 'POST':
         # Get the selected nominees for each category
