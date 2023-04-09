@@ -1,22 +1,4 @@
-<h1>Mombasa Youth Awards</h1>
-
-<h1>Categories</h1>
-    <ul>
-        {% for category in categories %}
-            <li>
-                <h2>{{ category.name }}</h2>
-                <p>{{ category.description }}</p>
-                <ul>
-                    {% for nominee in category.nominee_set.all %}
-                        <li>{{ nominee.name }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
-
-
-<!-- {% if latest_question_list %}
+{% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
     <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
@@ -24,4 +6,4 @@
     </ul>
 {% else %}
     <p>No polls are available.</p>
-{% endif %} -->
+{% endif %}
