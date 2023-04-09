@@ -32,11 +32,13 @@ def vote(request):
             if nominee_id:
                 selected_nominees[category.id] = nominee_id
 
-        # Create a vote for each selected nominee
+        # Create a vote for each selected nominee and increment the vote count
         for category_id, nominee_id in selected_nominees.items():
             nominee = get_object_or_404(Nominee, id=nominee_id)
             vote = Vote(user=request.user, nominee=nominee)
             vote.save()
+            nominee.votes += 1
+            nominee.save()
 
         # Redirect back to index
         return redirect('polls:success')
@@ -44,6 +46,21 @@ def vote(request):
     # Render the vote template with all categories and their nominees
     context = {'categories': categories}
     return render(request, 'vote.html', context)
+
+def results(request):
+    categories = Category.objects.all()
+
+    # Create a dictionary to store the total vote count for each nominee in each category
+    vote_counts = {}
+    for category in categories:
+        nominees = Nominee.objects.filter(category=category)
+        for nominee in nominees:
+            vote_count = nominee.vote_set.count()
+            vote_counts[(category, nominee)] = vote_count
+
+    context = {'categories': categories, 'vote_counts': vote_counts}
+    return render(request, 'results.html', context)
+
 
 
 def vote_success(request):

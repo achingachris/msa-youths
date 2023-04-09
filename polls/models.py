@@ -14,6 +14,7 @@ class Nominee(models.Model):
     image = models.ImageField(upload_to='nominee_images/', blank=True)
     description = models.CharField(max_length=200, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    votes = models.IntegerField(default=0)
     
     def __str__(self) -> str:
         return self.name

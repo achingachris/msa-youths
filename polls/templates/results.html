@@ -4,8 +4,9 @@
   <h2>{{ category.name }}</h2>
   <ul>
     {% for nominee in category.nominee_set.all %}
-      <li>{{ nominee.name }}: {{ vote_counts[category.id, nominee.id] }}</li>
+      <li>{{ nominee.name }}: {{nominee.votes}}</li>
     {% endfor %}
   </ul>
 {% endfor %}
+
 
