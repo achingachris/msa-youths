@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Choice, Category, Nominee, Vote
+from .models import Category, Nominee, Vote
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
@@ -22,6 +22,3 @@ class VoteAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Nominee, NomineeAdmin)
 admin.site.register(Vote, VoteAdmin)
-
-# admin.site.register(Question)
-# admin.site.register(Choice)

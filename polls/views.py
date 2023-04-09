@@ -1,11 +1,8 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from django.template import loader
 from django.urls import reverse
-from .models import Question, Choice, Category, Nominee, Vote
+from .models import Category, Nominee, Vote
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist
 
 # list all categories and nominees
 def index(request):
