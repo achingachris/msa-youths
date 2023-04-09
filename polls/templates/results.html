@@ -1,0 +1,11 @@
+<h1>Results</h1>
+
+{% for category in categories %}
+  <h2>{{ category.name }}</h2>
+  <ul>
+    {% for nominee in category.nominee_set.all %}
+      <li>{{ nominee.name }}: {{ vote_counts[category.id, nominee.id] }}</li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+
