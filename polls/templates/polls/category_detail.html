@@ -1,0 +1,27 @@
+{% extends "layout/index.html" %}
+
+{% block content %}
+  <form>
+    <fieldset>
+      <legend>
+        <h1>{{ nomination_category.category_name }}</h1>
+      </legend>
+      <p>{{ nomination_category.description }}</p>
+
+      <h2>Nominees:</h2>
+      <div class="form-group">
+        {% for nominee in nominees %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="nominee" id="nominee{{ forloop.counter }}" value="{{ nominee.id }}">
+            <label class="form-check-label" for="nominee{{ forloop.counter }}">{{ nominee.nominee_name }}</label>
+          </div>
+        {% empty %}
+          <p class="alert alert-warning">No nominees in this category.</p>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">Vote</button>
+
+  </form>
+{% endblock %}

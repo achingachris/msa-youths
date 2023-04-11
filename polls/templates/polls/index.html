@@ -1,7 +1,35 @@
 {% extends "layout/index.html" %} {% block content %}
 
 <div class="container">
-  <!-- Page Heading -->
+  <h2>Nomination Categories</h2>
+
+  {% if category %} 
+  <div class="row">
+  {% for category in category %}
+  <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="card h-100">
+      <a href="#"
+        ><img
+          class="card-img-top"
+          src="https://via.placeholder.com/700x400"
+          alt=""
+      /></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="{% url 'polls:nomination_category_detail' category.id %}"
+            >{{ category.category_name }}</a
+          >
+        </h4>
+        <p class="card-text">{{ category.description }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %} 
+  
+  {% else %}
+  <p>No categories are available.</p>
+  {% endif %}
+
   <h1 class="my-4">
     Page Heading
     <small>Secondary Text</small>
@@ -24,13 +52,12 @@
               >{{ question.question_text }}</a
             >
           </h4>
-          <p class="card-text">
-            Category description
-          </p>
+          <p class="card-text">Category description</p>
         </div>
       </div>
     </div>
     {% endfor %}
+  </div>
   </div>
   {% else %}
   <p>No polls are available.</p>

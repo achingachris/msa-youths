@@ -1,18 +1,25 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Choice, Question
+from .models import Choice, Question, NominationCategory, Nominee
 from django.template import loader
 
 
 def index(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
-    context = {"latest_question_list": latest_question_list}
+    category = NominationCategory.objects.all()
+    context = {"latest_question_list": latest_question_list, "category": category}
     return render(request, "polls/index.html", context)
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {"question": question})
+
+def nomination_category_detail(request, nomination_category_id):
+    nomination_category = get_object_or_404(NominationCategory, pk=nomination_category_id)
+    nominees = Nominee.objects.filter(category=nomination_category)
+    return render(request, "polls/category_detail.html", {"nomination_category": nomination_category, "nominees": nominees})
+
 
 
 def results(request, question_id):
