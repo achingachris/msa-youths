@@ -12,7 +12,8 @@ urlpatterns = [
     path("<int:question_id>/results/", views.results, name="results"),
     # ex: /polls/5/vote/
     path("<int:question_id>/vote/", views.vote, name="vote"),
-    path("<int:question_id>/vote/", views.vote, name="vote"),
     path("nomination_category/<int:nomination_category_id>/", views.nomination_category_detail, name="nomination_category_detail"),
+    path("category/<int:category_id>/vote/", views.nominee_vote, name="nominee_vote"),
+    path('category/<int:category_id>/results/', views.nomination_category_results, name='nomination_category_results'),
 
 ]

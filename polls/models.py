@@ -45,6 +45,7 @@ class Nominee(models.Model):
     facebook = models.CharField(max_length=200, null=True, blank=True)
     youtube = models.CharField(max_length=200, null=True, blank=True)
     image = models.ImageField(upload_to='uploads/', null=True, blank=True)
+    votes = models.IntegerField(default=0)
     
     def __str__(self):
         return self.nominee_name

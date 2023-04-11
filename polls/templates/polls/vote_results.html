@@ -1,0 +1,17 @@
+{% extends "layout/index.html" %}
+
+{% block content %}
+  <h1>{{ nomination_category.category_name }} Results</h1>
+  <p>{{ nomination_category.description }}</p>
+
+  <h2>Nominees:</h2>
+  <ul>
+    {% for nominee in nominees %}
+      <li>{{ nominee.nominee_name }} - {{ nominee.votes }} votes</li>
+    {% empty %}
+      <li>No nominees in this category.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'polls:nomination_category_detail' nomination_category.id %}" class="btn btn-primary">Vote again</a>
+{% endblock %}

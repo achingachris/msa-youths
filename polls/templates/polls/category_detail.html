@@ -1,7 +1,8 @@
 {% extends "layout/index.html" %}
 
 {% block content %}
-  <form>
+  <form action="{% url 'polls:nominee_vote' nomination_category.id %}" method="post">
+    {% csrf_token %}
     <fieldset>
       <legend>
         <h1>{{ nomination_category.category_name }}</h1>
