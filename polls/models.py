@@ -5,7 +5,8 @@ from django.utils import timezone
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    description = models.CharField(max_length=200, null=True, blank=True)
+    pub_date = models.DateTimeField("date published", auto_now_add=True)
     
     def __str__(self):
         return self.question_text
@@ -21,3 +22,15 @@ class Choice(models.Model):
     
     def __str__(self):
         return self.choice_text
+    
+# nomination category
+class NominationCategory(models.Model):
+    category_name = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    image = models.ImageField(upload_to='uploads/', null=True, blank=True)
+    
+    def __str__(self):
+        return self.category_name
+    
+    class Meta:
+        verbose_name_plural = "Nomination Categories"
