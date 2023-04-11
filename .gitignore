@@ -580,5 +580,6 @@ pip-selfcheck.json
 .history
 .ionide
 uploads/
+share/
 
 # End of https://www.toptal.com/developers/gitignore/api/virtualenv,django,python,visualstudiocode

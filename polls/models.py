@@ -34,3 +34,20 @@ class NominationCategory(models.Model):
     
     class Meta:
         verbose_name_plural = "Nomination Categories"
+        
+# nominee
+class Nominee(models.Model):
+    nominee_name = models.CharField(max_length=200)
+    category = models.ForeignKey(NominationCategory, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    tiktok = models.CharField(max_length=200, null=True, blank=True)
+    instagram = models.CharField(max_length=200, null=True, blank=True)
+    facebook = models.CharField(max_length=200, null=True, blank=True)
+    youtube = models.CharField(max_length=200, null=True, blank=True)
+    image = models.ImageField(upload_to='uploads/', null=True, blank=True)
+    
+    def __str__(self):
+        return self.nominee_name
+    
+    class Meta:
+        verbose_name_plural = "Nominees"
