@@ -7,6 +7,9 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
@@ -23,13 +26,14 @@ def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {"question": question})
 
+@login_required
 def nomination_category_detail(request, nomination_category_id):
     nomination_category = get_object_or_404(NominationCategory, pk=nomination_category_id)
     nominees = Nominee.objects.filter(category=nomination_category)
     return render(request, "polls/category_detail.html", {"nomination_category": nomination_category, "nominees": nominees})
 
 
-
+@login_required
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/results.html", {"question": question})
@@ -74,8 +78,13 @@ def nominee_vote(request, category_id):
         # Redirect to the results page for this category.
         # You'll need to create a "nomination_category_results" view and corresponding URL pattern.
         return HttpResponseRedirect(reverse("polls:nomination_category_results", args=(category.id,)))
-    
+
+def is_admin(user):
+    return user.is_superuser
+
+@user_passes_test(is_admin, login_url='/')
 def nomination_category_results(request, category_id):
     category = get_object_or_404(NominationCategory, pk=category_id)
     nominees = category.nominee_set.all().order_by('-votes')
     return render(request, "polls/vote_results.html", {"nomination_category": category, "nominees": nominees})
+

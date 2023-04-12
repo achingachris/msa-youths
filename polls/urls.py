@@ -20,5 +20,5 @@ urlpatterns = [
     
     # ACCOUNT URLS
     path("signup/", SignUpView.as_view(), name="signup"),
-
+    
 ]
