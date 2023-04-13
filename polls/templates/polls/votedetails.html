@@ -1,0 +1,58 @@
+{% extends "layout/index.html" %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+
+<div class="container">
+  <h2>Nomination Categories</h2>
+
+  {% if category %} 
+  <div class="row">
+  {% for category in category %}
+  <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="card h-100">
+      <a href="#"
+        >
+        {% if category.image %}
+        <img
+        class="card-img-top"
+        src="{{ category.image.url }}"
+        alt="{{ category.category_name }}"
+        loading="lazy"
+    />
+        {% else %}
+        <img
+          class="card-img-top"
+          src="{% static 'msa-logo-dummy.png' %}"
+          alt="{{ category.category_name }}"
+          width="700"
+          height="300"
+          loading="lazy"
+      />
+        {% endif %}
+
+    </a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="{% url 'polls:nomination_category_detail' category.id %}"
+            >{{ category.category_name }}</a
+          >
+        </h4>
+        <p class="card-text">{{ category.description }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %} 
+  
+  {% else %}
+  <p>No categories are available.</p>
+  {% endif %}
+
+{% endblock %}

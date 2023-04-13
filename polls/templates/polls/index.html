@@ -2,133 +2,17 @@
 {% load static %}
 {% block content %}
 
-<div class="container col-xxl-8 px-4 py-5">
-  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-    <div class="col-10 col-sm-8 col-lg-6">
-      <img src="{% static 'msa-logo-dummy.png' %}" class="d-block mx-lg-auto img-fluid" alt="Mombasa Youths Awards" width="700" height="500" loading="lazy">
-    </div>
-    <div class="col-lg-6">
-      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Mombasa Youth Awards 2023</h1>
-      <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, suscipit, quia recusandae rem debitis blanditiis provident totam doloribus cum nobis ducimus aliquam exercitationem eos. Aperiam explicabo laboriosam nisi consectetur minus.</p>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
-      </div>
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Mombasa Youths Awards 2023</h1>
+      <p class="lead text-body-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, accusantium.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">Start Voting</a>
+        <a href="#" class="btn btn-secondary my-2">Get Your Ticket</a>
+      </p>
     </div>
   </div>
-</div>
-
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
-{% endif %}
-
-<div class="container">
-  <h2>Nomination Categories</h2>
-
-  {% if category %} 
-  <div class="row">
-  {% for category in category %}
-  <div class="col-lg-4 col-sm-6 mb-4">
-    <div class="card h-100">
-      <a href="#"
-        >
-        {% if category.image %}
-        <img
-        class="card-img-top"
-        src="{{ category.image.url }}"
-        alt="{{ category.category_name }}"
-        loading="lazy"
-    />
-        {% else %}
-        <img
-          class="card-img-top"
-          src="{% static 'msa-logo-dummy.png' %}"
-          alt="{{ category.category_name }}"
-          width="700"
-          height="300"
-          loading="lazy"
-      />
-        {% endif %}
-
-    </a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="{% url 'polls:nomination_category_detail' category.id %}"
-            >{{ category.category_name }}</a
-          >
-        </h4>
-        <p class="card-text">{{ category.description }}</p>
-      </div>
-    </div>
-  </div>
-  {% endfor %} 
-  
-  {% else %}
-  <p>No categories are available.</p>
-  {% endif %}
-
-  <h1 class="my-4">
-    Page Heading
-    <small>Secondary Text</small>
-  </h1>
-
-  {% if latest_question_list %}
-  <div class="row">
-    {% for question in latest_question_list %}
-    <div class="col-lg-4 col-sm-6 mb-4">
-      <div class="card h-100">
-        <a href="{% url 'polls:detail' question.id %}"
-          ><img
-            class="card-img-top"
-            src="https://via.placeholder.com/700x400"
-            alt=""
-        /></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="{% url 'polls:detail' question.id %}"
-              >{{ question.question_text }}</a
-            >
-          </h4>
-          <p class="card-text">Category description</p>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  </div>
-  {% else %}
-  <p>No polls are available.</p>
-  {% endif %}
-
-  <!-- Pagination -->
-  <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">1</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</div>
-<!-- /.container -->
+</section>
 
 {% endblock %}
