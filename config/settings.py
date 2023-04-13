@@ -16,7 +16,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['chrisachinga.pythonanywhere.com', 'localhost:8000', '127.0.0.1:8000']
+# ALLOWED_HOSTS = ['chrisachinga.pythonanywhere.com', 'localhost:8000', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['*']
 
 
 
