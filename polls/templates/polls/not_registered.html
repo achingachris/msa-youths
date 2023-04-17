@@ -1,0 +1,6 @@
+{% extends "layout/index.html" %} {% block content %}
+
+<h2>Error: You must be registered to vote</h2>
+<p>Please <a href="{% url 'polls:signup' %}">create an account</a> to participate in voting.</p>
+
+{% endblock %}

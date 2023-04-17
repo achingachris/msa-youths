@@ -52,7 +52,9 @@
               {% if user.is_authenticated %}
               <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
               {% else %}
+              <a class="dropdown-item" href="{% url 'polls:signup' %}">Create Account</a>
               <a class="dropdown-item" href="{% url 'login' %}">Log In</a>
+              <!-- {% url 'polls:signup' %} -->
                 {% endif %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Buy Ticket</a>

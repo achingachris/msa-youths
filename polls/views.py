@@ -7,6 +7,9 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
@@ -40,7 +43,7 @@ def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/results.html", {"question": question})
 
-
+@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -63,6 +66,7 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
     
+@login_required
 def nominee_vote(request, category_id):
     category = get_object_or_404(NominationCategory, pk=category_id)
     try:
@@ -70,7 +74,8 @@ def nominee_vote(request, category_id):
     except (KeyError, Nominee.DoesNotExist):
         # Redisplay the nomination category detail form.
         messages.error(request, "You didn't select a nominee.")
-        return HttpResponseRedirect(reverse("polls:nomination_category_detail", args=(category.id,)))
+        # return HttpResponseRedirect(reverse("polls:nomination_category_detail", args=(category.id,)))
+        return redirect('polls:thank_you_forvoting')
     else:
         # Increment the votes for the selected nominee and save the changes.
         # You'll need to add a "votes" field to the Nominee model before using this line.
@@ -79,9 +84,18 @@ def nominee_vote(request, category_id):
 
         # Redirect to the results page for this category.
         # You'll need to create a "nomination_category_results" view and corresponding URL pattern.
-        return HttpResponseRedirect(reverse("polls:nomination_category_results", args=(category.id,)))
+        # return HttpResponseRedirect(reverse("polls:nomination_category_results", args=(category.id,)))
+        return redirect('polls:thank_you_forvoting')
+
     
 def nomination_category_results(request, category_id):
     category = get_object_or_404(NominationCategory, pk=category_id)
     nominees = category.nominee_set.all().order_by('-votes')
     return render(request, "polls/vote_results.html", {"nomination_category": category, "nominees": nominees})
+
+
+def not_registered(request):
+    return render(request, 'polls/not_registered.html')
+
+def thank_you_forvoting(request):
+    return render(request, 'polls/thankyou.html')

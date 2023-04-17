@@ -1,0 +1,9 @@
+{% extends "layout/index.html" %} {% block content %}
+
+Thank you For Voting! Did you know that you can vote again after an hour? We are working on a way to allow you to vote multiple times a day. Thank you for voting with us.
+
+<h2>Thank you for voting!</h2>
+<p>Your vote has been successfully recorded.</p>
+<p><a href="{% url 'polls:index' %}">Return to the main page</a></p>
+
+{% endblock %}
