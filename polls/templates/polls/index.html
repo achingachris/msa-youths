@@ -1,16 +1,25 @@
-{% extends "layout/index.html" %}
-{% load static %}
-{% block content %}
+{% extends "layout/index.html" %} {% load static %} {% block content %}
 
 <section class="py-5 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
       <h1 class="fw-light">Mombasa Youths Awards 2023</h1>
-      <p class="lead text-body-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, accusantium.</p>
+      <p class="lead text-body-secondary">
+        The Mombasa Youth Awards is an award ceremony organized by The Vijana
+        Network, meant to Celebrate and Empower the young generation of Mombasa
+        County. The ceremony will be taking place annually.
+      </p>
       <p>
-        <a href="{% url 'polls:viewcategories' %}" class="btn btn-primary my-2">Start Voting</a>
-        <a href="https://events.mtickets.com/events/mombasa-youth-awards/229?utm_source=mombasayouthsawards&utm_medium=website&utm_campaign=mya_promotion
-        " target="_blank" class="btn btn-secondary my-2">Get Your Ticket</a>
+        <a href="{% url 'polls:viewcategories' %}" class="btn btn-primary my-2"
+          >Start Voting</a
+        >
+        <a
+          href="https://events.mtickets.com/events/mombasa-youth-awards/229?utm_source=mombasayouthsawards&utm_medium=website&utm_campaign=mya_promotion
+        "
+          target="_blank"
+          class="btn btn-secondary my-2"
+          >Get Your Ticket</a
+        >
       </p>
     </div>
   </div>
