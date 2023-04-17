@@ -15,7 +15,7 @@ urlpatterns = [
     path('category/<int:category_id>/results/', views.nomination_category_results, name='nomination_category_results'),
     path('not_registered/', views.not_registered, name='not_registered'),
     path('thankyou/', views.thank_you_forvoting, name='thank_you_forvoting'),
-
+    path('vote_limit/', views.vote_limit, name='vote_limit'),
 
     
     # ACCOUNT URLS
