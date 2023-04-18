@@ -6,6 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Vijana Youth Network | Mombasa Youth Awards</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Mombasa Youths Awards 2023" />
+    <meta
+      name="description"
+      content="The Mombasa Youth Awards is an award ceremony organized by The Vijana Network, meant to Celebrate and Empower the young generation of Mombasa County. The ceremony will be taking place annually."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://chrisachinga.pythonanywhere.com/"
+    />
+    <meta property="og:title" content="Mombasa Youths Awards 2023" />
+    <meta
+      property="og:description"
+      content="The Mombasa Youth Awards is an award ceremony organized by The Vijana Network, meant to Celebrate and Empower the young generation of Mombasa County. The ceremony will be taking place annually."
+    />
+    <meta property="og:image" content="https://res.cloudinary.com/chrisdevcode/image/upload/v1681852757/msa-logo-dummy_kwdr0f.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://chrisachinga.pythonanywhere.com/"
+    />
+    <meta property="twitter:title" content="Mombasa Youths Awards 2023" />
+    <meta
+      property="twitter:description"
+      content="The Mombasa Youth Awards is an award ceremony organized by The Vijana Network, meant to Celebrate and Empower the young generation of Mombasa County. The ceremony will be taking place annually."
+    />
+    <meta property="twitter:image" content="https://res.cloudinary.com/chrisdevcode/image/upload/v1681852757/msa-logo-dummy_kwdr0f.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -15,61 +47,34 @@
     <link rel="stylesheet" href="{% static 'style.css' %}" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'polls:index' %}">Mombasa Youths Awards</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                More Stuffs!
-              </a>
-              <!-- Here's the magic. Add the .animate and .slideIn classes to your .dropdown-menu and you're all set! -->
-              <div
-                class="dropdown-menu dropdown-menu-end animate slideIn"
-                aria-labelledby="navbarDropdown"
-              >
-              {% if user.is_authenticated %}
-              <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
-              {% else %}
-              <a class="dropdown-item" href="{% url 'polls:signup' %}">Create Account</a>
-              <a class="dropdown-item" href="{% url 'login' %}">Log In</a>
-              <!-- {% url 'polls:signup' %} -->
-                {% endif %}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Buy Ticket</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="{% url 'polls:index' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-4">Mombasa Youths Awards</span>
+        </a>
+  
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="{% url 'polls:viewcategories' %}" class="nav-link active" aria-current="page">Vote</a></li>
+          <li class="nav-item"><a href="https://events.mtickets.com/events/mombasa-youth-awards/229?utm_source=mombasayouthsawards&utm_medium=website&utm_campaign=mya_promotion" class="nav-link">Tickets</a></li>
+      </header>
+    </div>
+
     <main class="container">{% block content %}{% endblock %}</main>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">The Vijana Youth Network</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">&copy; 2023 Built & Serviced By <a href="https://www.chrisdevcode.xyz/">Achinga, Chris</a> </p>
+      </footer>
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
-    <script src="{% static 'js/base.js' }"></script>
+    <script src="{% static 'script.js' }"></script>
   </body>
 </html>

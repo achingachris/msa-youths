@@ -19,12 +19,15 @@
 {% endif %}
 <!-- End of error messages display -->
 
+
 <form
   action="{% url 'polls:nominee_vote' nomination_category.id %}"
   method="post"
   class="card p-2"
 >
   {% csrf_token %}
+
+  
   <fieldset>
     <legend>
       {{ nomination_category.category_name }}
