@@ -35,10 +35,12 @@ INSTALLED_APPS = [
     # third party apps
     'import_export',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,3 +134,12 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/" 
+
+
+# Allow all origins to access the API
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Alternatively, you can allow specific origins:
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",  # Your frontend domain
+# ]
