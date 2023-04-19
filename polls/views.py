@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, timedelta
 from django.core.cache import cache
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 # API imports
 from rest_framework import generics
@@ -111,3 +114,16 @@ class NomineesByCategory(generics.ListAPIView):
 class NominationCategoryDetail(generics.RetrieveAPIView):
     queryset = NominationCategory.objects.all()
     serializer_class = NominationCategorySerializer
+    
+@api_view(['POST'])
+def submit_vote(request):
+    try:
+        nominee_id = request.data.get('nominee_id')
+        nominee = Nominee.objects.get(id=nominee_id)
+        nominee.votes += 1
+        nominee.save()
+        return Response({"message": "Vote submitted successfully"}, status=status.HTTP_200_OK)
+    except Nominee.DoesNotExist:
+        return Response({"message": "Nominee not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
