@@ -17,7 +17,7 @@ urlpatterns = [
     # APIS
     path('api/categories/', NominationCategoryList.as_view(), name='categories'),
     path('api/categories/<int:category_id>/nominees/', NomineesByCategory.as_view(), name='nominees_by_category'),
-    path('api/categories/<int:pk>/', NominationCategoryDetail.as_view(), name='nomination_category_detail'),
+    path('api/categories/<int:pk>/', NominationCategoryDetail.as_view(), name='nomination_category_detail_api'),
     # submit votes via form
     path('api/submit_vote/', views.submit_vote, name='submit_vote'),
 
