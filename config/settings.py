@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     
     # third party apps
     'import_export',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

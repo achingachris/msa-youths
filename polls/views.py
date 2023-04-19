@@ -12,7 +12,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, timedelta
 from django.core.cache import cache
 
-
+# API imports
+from rest_framework import generics
+from .serializers import NomineeSerializer, NominationCategorySerializer
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
@@ -70,59 +72,6 @@ def nominee_vote(request, category_id):
         selected_nominee.save()
 
         return redirect('polls:thank_you_forvoting')
-
-
-# def nominee_vote(request, category_id):
-#     category = get_object_or_404(NominationCategory, pk=category_id)
-    
-#     # Check if the user has voted within the last hour for this category
-#     cache_key = f'last_vote_time_{category_id}_{request.META["REMOTE_ADDR"]}'
-#     last_vote_time = cache.get(cache_key)
-#     if last_vote_time:
-#         last_vote_time = datetime.strptime(last_vote_time, '%Y-%m-%dT%H:%M:%S.%f')
-#         time_since_last_vote = datetime.now() - last_vote_time
-#         if time_since_last_vote < timedelta(hours=1):
-#             return redirect('polls:vote_limit')  # Redirect to the vote_limit view
-
-#     try:
-#         selected_nominee = category.nominee_set.get(pk=request.POST["nominee"])
-#     except (KeyError, Nominee.DoesNotExist):
-#         messages.error(request, "You didn't select a nominee.")
-#         return redirect('polls:thank_you_forvoting')
-#     else:
-#         selected_nominee.votes += 1
-#         selected_nominee.save()
-
-#         # Update the cache with the new vote timestamp
-#         cache.set(cache_key, datetime.now().isoformat(), 3600)  # Cache for 1 hour
-
-#         return redirect('polls:thank_you_forvoting')
-
-# @login_required
-# def nominee_vote(request, category_id):
-#     category = get_object_or_404(NominationCategory, pk=category_id)
-    
-#     # Check if the user has voted within the last hour
-#     last_vote_time = request.session.get('last_vote_time')
-#     if last_vote_time:
-#         last_vote_time = datetime.strptime(last_vote_time, '%Y-%m-%dT%H:%M:%S.%f')
-#         time_since_last_vote = datetime.now() - last_vote_time
-#         if time_since_last_vote < timedelta(hours=1):
-#             return redirect('polls:vote_limit')  # Redirect to the vote_limit view
-
-#     try:
-#         selected_nominee = category.nominee_set.get(pk=request.POST["nominee"])
-#     except (KeyError, Nominee.DoesNotExist):
-#         messages.error(request, "You didn't select a nominee.")
-#         return redirect('polls:thank_you_forvoting')
-#     else:
-#         selected_nominee.votes += 1
-#         selected_nominee.save()
-
-#         # Update the session with the new vote timestamp
-#         request.session['last_vote_time'] = datetime.now().isoformat()
-
-#         return redirect('polls:thank_you_forvoting')
   
 def nomination_category_results(request, category_id):
     category = get_object_or_404(NominationCategory, pk=category_id)
@@ -144,3 +93,21 @@ def vote_limit(request):
         next_vote_time = last_vote_time + timedelta(hours=1)
         remaining_time = (next_vote_time - datetime.now()).total_seconds()
     return render(request, 'polls/vote_limit.html', {'remaining_time': remaining_time})
+
+
+# API VIEW
+
+class NominationCategoryList(generics.ListAPIView):
+    queryset = NominationCategory.objects.all()
+    serializer_class = NominationCategorySerializer
+    
+class NomineesByCategory(generics.ListAPIView):
+    serializer_class = NomineeSerializer
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        return Nominee.objects.filter(category__id=category_id)
+
+class NominationCategoryDetail(generics.RetrieveAPIView):
+    queryset = NominationCategory.objects.all()
+    serializer_class = NominationCategorySerializer
