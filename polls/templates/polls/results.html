@@ -1,18 +1,20 @@
 {% extends "layout/index.html" %} {% block content %}
 
 
-<h1>{{ question.question_text }}</h1>
-
-<ul class="list-group">
-{% for choice in question.choice_set.all %}
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{ choice.choice_text }}
-        <span>{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
-    </li>
-{% endfor %}
-</ul>
-
-<a href="{% url 'polls:detail' question.id %}" class="btn btn-primary mt-3">Vote again?</a>
-
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Mombasa Youths Awards 2023</h1>
+        <p class="lead text-body-secondary">
+          Thank you for visiting the site. We have moved to  <a href="https://www.mombasayouthsawards.co.ke/">https://www.mombasayouthsawards.co.ke/</a>
+        </p>
+        <p>
+          <a href="https://www.mombasayouthsawards.co.ke/vote" class="btn btn-success my-2"
+            >Start Voting</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}

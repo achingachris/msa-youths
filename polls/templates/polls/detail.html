@@ -1,18 +1,17 @@
 {% extends "layout/index.html" %} {% block content %}
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>{{ question.question_text }}</h1></legend>
-        {% if error_message %}<p class="alert alert-danger">{{ error_message }}</p>{% endif %}
-        <div class="form-group">
-            {% for choice in question.choice_set.all %}
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" disabled>
-                    <label class="form-check-label" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
-                </div>
-            {% endfor %}
-        </div>
-    </fieldset>
-    <button type="submit" class="btn btn-primary">Vote</button>
-</form>
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Mombasa Youths Awards 2023</h1>
+        <p class="lead text-body-secondary">
+          Thank you for visiting the site. We have moved to  <a href="https://www.mombasayouthsawards.co.ke/">https://www.mombasayouthsawards.co.ke/</a>
+        </p>
+        <p>
+          <a href="https://www.mombasayouthsawards.co.ke/vote" class="btn btn-success my-2"
+            >Start Voting</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
 {% endblock %}

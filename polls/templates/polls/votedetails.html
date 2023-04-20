@@ -3,106 +3,17 @@
 <section class="py-5 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">Nomination Categories</h1>
-      {% if user.is_authenticated %}
+      <h1 class="fw-light">Mombasa Youths Awards 2023</h1>
       <p class="lead text-body-secondary">
-        Hello {{ user.username }}! Thank you for voting with us!
+        Thank you for visiting the site. We have moved to  <a href="https://www.mombasayouthsawards.co.ke/">https://www.mombasayouthsawards.co.ke/</a>
       </p>
-      {% endif %}
       <p>
-        <a
-          href="https://events.mtickets.com/events/mombasa-youth-awards/229?utm_source=mombasayouthsawards&utm_medium=website&utm_campaign=mya_promotion
-        "
-          target="_blank"
-          class="btn btn-outline-secondary my-2"
-          >Get Your Ticket</a
+        <a href="https://www.mombasayouthsawards.co.ke/vote" class="btn btn-success my-2"
+          >Start Voting</a
         >
       </p>
     </div>
   </div>
 </section>
-
-<section class="row">
-  <div class="col-md-6 m-auto"></div>
-  {% if category %}
-    {% for category in category %}
-      <div class="card mb-3">
-        <div class="card-body">
-          <p class="lead text-capitalize">{{ category.category_name }}</p>
-          <a href="{% url 'polls:nomination_category_detail' category.id %}" class="btn btn-primary btn-sm">Vote Now</a>
-        </div>
-      </div>
-    {% endfor %}
-  {% else %}
-  Sorry Not Available
-  {% endif %}
-    </div>
-</section>
-
-
-<!-- <section>
-  <div class="album py-5 bg-body-tertiary">
-    <div class="container">
-      {% if category %}
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for category in category %}
-        <div class="col">
-          <div class="card shadow-sm">
-            {% if category.image %}
-            <img
-              class="card-img-top"
-              src="{{ category.image.url }}"
-              alt="{{ category.category_name }}"
-              loading="lazy"
-            />
-            {% else %}
-            <svg
-              class="bd-placeholder-img card-img-top"
-              width="100%"
-              height="225"
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              aria-label="Placeholder: Thumbnail"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-            >
-              <title>Placeholder</title>
-              <rect width="100%" height="100%" fill="#55595c" />
-              <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ category.category_name }}</text>
-            </svg>
-            {% endif %}
-            <div class="card-body">
-              <h4 class="card-title text-capitalize">
-                <a href="{% url 'polls:nomination_category_detail' category.id %}"
-                  >{{ category.category_name }}</a
-                >
-              </h4>
-             
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a
-                    href="{% url 'polls:nomination_category_detail' category.id %}"
-                    type="button"
-                    class="btn btn-sm btn-outline-success"
-                  >
-                    Click to Vote
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-      {% else %}
-      <div class="card text-bg-warning mb-3">
-        <div class="card-body">
-          Sorry Our Admins are Working Hard to Add the Categories
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-</section> -->
 
 {% endblock %}
